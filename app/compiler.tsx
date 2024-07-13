@@ -174,7 +174,7 @@ const Compiler: React.FC = () => {
 
   return (
     <Container w="100%">
-      <Title order={2}>Compiler</Title>
+      <Title order={2} mb="sm">Compiler</Title>
       <FileInput
         placeholder="Upload .zip file"
         accept=".zip"

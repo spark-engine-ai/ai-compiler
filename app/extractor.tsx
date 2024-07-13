@@ -234,7 +234,7 @@ const Decompiler: React.FC = () => {
 
   return (
     <Container w="100%">
-      <Title order={2}>Decompiler</Title>
+      <Title order={2} mb="sm">Decompiler</Title>
       <FileInput
         placeholder="Upload .spk file"
         accept=".spk"
