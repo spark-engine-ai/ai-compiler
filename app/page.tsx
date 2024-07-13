@@ -10,7 +10,7 @@ const App: React.FC = () => {
           <Title order={1}>Spark Engine</Title>
           <Text c="dimmed" mb="md">.SPK File Extractor and Compiler</Text>
 
-      <Paper shadow="xs" withBorder p="sm">
+      <Paper shadow="xs" withBorder p="sm" w="70%" style={{maxWidth:'450px'}}>
        <Flex align="center" direction="column" justify="center" w="100%" h="100%" gap="sm">
          <Extractor />
          <Divider my={8}/>

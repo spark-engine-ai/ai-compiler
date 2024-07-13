@@ -1,0 +1,1040 @@
+{
+  "nodes": [
+  {
+    "id": "node_1718048290357_0.768624748151941",
+    "data": {
+      "text": "",
+      "text2": "",
+      "title": "Input",
+      "config": {
+        "props": []
+      },
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "input",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 150,
+    "height": 118,
+    "dragging": false,
+    "position": {
+      "x": -140,
+      "y": -20
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": -140,
+      "y": -20
+    }
+  },
+  {
+    "id": "node_1720908781530_0.735452674171311",
+    "data": {
+      "title": "Clear input",
+      "config": {
+        "icon": "IconX",
+        "title": "Clear input",
+        "category": "input",
+        "description": "This node destroys any incoming inputs and plays the next node."
+      },
+      "fileName": "clearNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 98,
+    "dragging": false,
+    "position": {
+      "x": 1740,
+      "y": 160
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 1740,
+      "y": 160
+    }
+  },
+  {
+    "id": "node_1720908802076_0.8444712155911578",
+    "data": {
+      "text": "",
+      "text2": "",
+      "title": "Output",
+      "config": {
+        "props": []
+      },
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "outputPassNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 202,
+    "height": 82,
+    "dragging": false,
+    "position": {
+      "x": 2100,
+      "y": 340
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 2100,
+      "y": 340
+    }
+  },
+  {
+    "id": "node_1720908806602_0.4511821730684",
+    "data": {
+      "text": "",
+      "text2": "",
+      "title": "Output Array",
+      "config": {
+        "props": []
+      },
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "outputArrayNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 202,
+    "height": 82,
+    "dragging": false,
+    "position": {
+      "x": 2100,
+      "y": 480
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 2100,
+      "y": 480
+    }
+  },
+  {
+    "id": "node_1720908810180_0.526755443072414",
+    "data": {
+      "title": "Agent",
+      "config": {
+        "props": [
+          {
+            "name": "text",
+            "type": "textbox",
+            "label": "Instructions",
+            "value": "Enter what to do with the input"
+          },
+          {
+            "name": "taskType",
+            "type": "dropdown",
+            "label": "Model",
+            "value": [
+              "meta-llama/llama3-8b-8192"
+            ],
+            "options": [
+              "mistralai/mixtral-8x7b-32768",
+              "google/gemma-7b-it",
+              "meta-llama/llama3-70b-8192",
+              "meta-llama/llama3-8b-8192",
+              "openai/gpt-3.5-turbo",
+              "openai/gpt-4-turbo",
+              "openai/davinci-002",
+              "openai/babbage-002",
+              "zero-one-ai/Yi-34B-Chat",
+              "allenai/OLMo-7B-Twin-2T",
+              "allenai/OLMo-7B",
+              "Austism/chronos-hermes-13b",
+              "cognitivecomputations/dolphin-2.5-mixtral-8x7b",
+              "databricks/dbrx-instruct",
+              "deepseek-ai/deepseek-coder-33b-instruct",
+              "deepseek-ai/deepseek-llm-67b-chat",
+              "garage-bAInd/Platypus2-70B-instruct",
+              "google/gemma-2b-it",
+              "Gryphe/MythoMax-L2-13b",
+              "lmsys/vicuna-13b-v1.5",
+              "lmsys/vicuna-7b-v1.5",
+              "codellama/CodeLlama-13b-Instruct-hf",
+              "codellama/CodeLlama-34b-Instruct-hf",
+              "codellama/CodeLlama-70b-Instruct-hf",
+              "codellama/CodeLlama-7b-Instruct-hf",
+              "meta-llama/Llama-2-70b-chat-hf",
+              "meta-llama/Llama-2-7b-chat-hf",
+              "mistralai/Mistral-7B-Instruct-v0.1",
+              "mistralai/Mistral-7B-Instruct-v0.2",
+              "mistralai/Mistral-7B-Instruct-v0.3",
+              "mistralai/Mixtral-8x22B-Instruct-v0.1",
+              "NousResearch/Nous-Capybara-7B-V1p9",
+              "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+              "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO",
+              "NousResearch/Nous-Hermes-2-Mixtral-8x7B-SFT",
+              "NousResearch/Nous-Hermes-llama-2-7b",
+              "NousResearch/Nous-Hermes-Llama2-13b",
+              "NousResearch/Nous-Hermes-2-Yi-34B",
+              "openchat/openchat-3.5-1210",
+              "Open-Orca/Mistral-7B-OpenOrca",
+              "Qwen/Qwen1.5-0.5B-Chat",
+              "Qwen/Qwen1.5-1.8B-Chat",
+              "Qwen/Qwen1.5-4B-Chat",
+              "Qwen/Qwen1.5-7B-Chat",
+              "meta-llama/Llama-2-13b-chat-hf",
+              "allenai/OLMo-7B-Instruct",
+              "Qwen/Qwen1.5-14B-Chat",
+              "Qwen/Qwen1.5-32B-Chat",
+              "Qwen/Qwen1.5-72B-Chat",
+              "Qwen/Qwen1.5-110B-Chat",
+              "Qwen/Qwen2-72B-Instruct",
+              "snorkelai/Snorkel-Mistral-PairRM-DPO",
+              "Snowflake/snowflake-arctic-instruct",
+              "togethercomputer/alpaca-7b",
+              "teknium/OpenHermes-2-Mistral-7B",
+              "teknium/OpenHermes-2p5-Mistral-7B",
+              "togethercomputer/Llama-2-7B-32K-Instruct",
+              "togethercomputer/RedPajama-INCITE-Chat-3B-v1",
+              "togethercomputer/RedPajama-INCITE-7B-Chat",
+              "togethercomputer/StripedHyena-Nous-7B",
+              "Undi95/ReMM-SLERP-L2-13B",
+              "Undi95/Toppy-M-7B",
+              "WizardLM/WizardLM-13B-V1.2",
+              "upstage/SOLAR-10.7B-Instruct-v1.0",
+              "prompthero/openjourney",
+              "runwayml/stable-diffusion-v1-5",
+              "SG161222/Realistic_Vision_V3.0_VAE",
+              "stabilityai/stable-diffusion-2-1",
+              "stabilityai/stable-diffusion-xl-base-1.0",
+              "wavymulder/Analog-Diffusion"
+            ]
+          },
+          {
+            "name": "character",
+            "type": "character",
+            "label": "Character",
+            "value": ""
+          }
+        ],
+        "title": "Agent",
+        "category": "prompt",
+        "iconImage": "/nodes/icons/agent.png",
+        "useAgents": true,
+        "useStorage": true,
+        "borderColor": "linear-gradient(to bottom right, #5399f5 0%, #3870ba 25%, #325787 50%, #5399f5 75%, #5399f5 100%)",
+        "description": "The agent node is the most standard node on the platform.\n  It is used for calling out to any of the below LLMs. Text input enters the node, and the AI response is what exits the node as the output.\n  Agents can be created and managed in the Agents tab in the project, allowing for reuse across different nodes.\n  \n  For more information on how to create and use agents, check out [this guide](/guides/how-to-use-agents).\n  \n  | Model               | Credits | Response Time |\n  |---------------------|---------|---------------|\n  | gemma-7b-it         | 1       | HIGH SPEED    |\n  | llama3-70b-8192     | 1       | HIGH SPEED    |\n  | llama3-8b-8192      | 1       | HIGH SPEED    |\n  | mixtral-8x7b-32768  | 1       | HIGH SPEED    |\n  | babbage-002         | 1       | FAST          |\n  | davinci-002         | 1       | FAST          |\n  | gpt-3.5-turbo       | 5       | FAST          |\n  | gpt-4-turbo         | 5       | SLOW          |",
+        "useModalLibrary": true
+      },
+      "fileName": "agentNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 379,
+    "height": 264,
+    "dragging": false,
+    "position": {
+      "x": 520,
+      "y": 0
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 520,
+      "y": 0
+    }
+  },
+  {
+    "id": "node_1720908813259_0.279695227963088",
+    "data": {
+      "title": "Create Array",
+      "config": {
+        "icon": "IconTopologyBus",
+        "props": [
+          {
+            "name": "code",
+            "type": "code",
+            "label": "Data structure",
+            "value": "[]"
+          }
+        ],
+        "title": "Create Array",
+        "category": "prompt",
+        "description": "This node transforms any incoming data into an array."
+      },
+      "fileName": "arrayNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 201,
+    "dragging": false,
+    "position": {
+      "x": 520,
+      "y": -240
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 520,
+      "y": -240
+    }
+  },
+  {
+    "id": "node_1720908817730_0.8418585362557673",
+    "data": {
+      "title": "Condition",
+      "config": {
+        "icon": "IconZoomCode",
+        "props": [
+          {
+            "name": "input",
+            "type": "textbox",
+            "label": "If the input has...",
+            "value": "More than 10 words"
+          }
+        ],
+        "title": "Condition",
+        "category": "prompt",
+        "description": "This node analyzes input and chooses a path.",
+        "useSecondOutput": true
+      },
+      "fileName": "conditionNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 204,
+    "dragging": false,
+    "position": {
+      "x": 80,
+      "y": -60
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 80,
+      "y": -60
+    }
+  },
+  {
+    "id": "node_1720908821733_0.4963318412841924",
+    "data": {
+      "title": "Prompt",
+      "config": {
+        "icon": "IconMessageDots",
+        "props": [
+          {
+            "name": "textbox",
+            "type": "textbox",
+            "label": "Instructions",
+            "value": "Enter what to do with the input"
+          },
+          {
+            "name": "taskType",
+            "type": "dropdown",
+            "label": "Model",
+            "value": [
+              "meta-llama/llama3-8b-8192"
+            ],
+            "options": [
+              "mistralai/mixtral-8x7b-32768",
+              "google/gemma-7b-it",
+              "meta-llama/llama3-70b-8192",
+              "meta-llama/llama3-8b-8192",
+              "openai/gpt-3.5-turbo",
+              "openai/gpt-4-turbo",
+              "openai/davinci-002",
+              "openai/babbage-002",
+              "zero-one-ai/Yi-34B-Chat",
+              "allenai/OLMo-7B-Twin-2T",
+              "allenai/OLMo-7B",
+              "Austism/chronos-hermes-13b",
+              "cognitivecomputations/dolphin-2.5-mixtral-8x7b",
+              "databricks/dbrx-instruct",
+              "deepseek-ai/deepseek-coder-33b-instruct",
+              "deepseek-ai/deepseek-llm-67b-chat",
+              "garage-bAInd/Platypus2-70B-instruct",
+              "google/gemma-2b-it",
+              "Gryphe/MythoMax-L2-13b",
+              "lmsys/vicuna-13b-v1.5",
+              "lmsys/vicuna-7b-v1.5",
+              "codellama/CodeLlama-13b-Instruct-hf",
+              "codellama/CodeLlama-34b-Instruct-hf",
+              "codellama/CodeLlama-70b-Instruct-hf",
+              "codellama/CodeLlama-7b-Instruct-hf",
+              "meta-llama/Llama-2-70b-chat-hf",
+              "meta-llama/Llama-2-7b-chat-hf",
+              "mistralai/Mistral-7B-Instruct-v0.1",
+              "mistralai/Mistral-7B-Instruct-v0.2",
+              "mistralai/Mistral-7B-Instruct-v0.3",
+              "mistralai/Mixtral-8x22B-Instruct-v0.1",
+              "NousResearch/Nous-Capybara-7B-V1p9",
+              "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+              "NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO",
+              "NousResearch/Nous-Hermes-2-Mixtral-8x7B-SFT",
+              "NousResearch/Nous-Hermes-llama-2-7b",
+              "NousResearch/Nous-Hermes-Llama2-13b",
+              "NousResearch/Nous-Hermes-2-Yi-34B",
+              "openchat/openchat-3.5-1210",
+              "Open-Orca/Mistral-7B-OpenOrca",
+              "Qwen/Qwen1.5-0.5B-Chat",
+              "Qwen/Qwen1.5-1.8B-Chat",
+              "Qwen/Qwen1.5-4B-Chat",
+              "Qwen/Qwen1.5-7B-Chat",
+              "meta-llama/Llama-2-13b-chat-hf",
+              "allenai/OLMo-7B-Instruct",
+              "Qwen/Qwen1.5-14B-Chat",
+              "Qwen/Qwen1.5-32B-Chat",
+              "Qwen/Qwen1.5-72B-Chat",
+              "Qwen/Qwen1.5-110B-Chat",
+              "Qwen/Qwen2-72B-Instruct",
+              "snorkelai/Snorkel-Mistral-PairRM-DPO",
+              "Snowflake/snowflake-arctic-instruct",
+              "togethercomputer/alpaca-7b",
+              "teknium/OpenHermes-2-Mistral-7B",
+              "teknium/OpenHermes-2p5-Mistral-7B",
+              "togethercomputer/Llama-2-7B-32K-Instruct",
+              "togethercomputer/RedPajama-INCITE-Chat-3B-v1",
+              "togethercomputer/RedPajama-INCITE-7B-Chat",
+              "togethercomputer/StripedHyena-Nous-7B",
+              "Undi95/ReMM-SLERP-L2-13B",
+              "Undi95/Toppy-M-7B",
+              "WizardLM/WizardLM-13B-V1.2",
+              "upstage/SOLAR-10.7B-Instruct-v1.0",
+              "prompthero/openjourney",
+              "runwayml/stable-diffusion-v1-5",
+              "SG161222/Realistic_Vision_V3.0_VAE",
+              "stabilityai/stable-diffusion-2-1",
+              "stabilityai/stable-diffusion-xl-base-1.0",
+              "wavymulder/Analog-Diffusion"
+            ]
+          }
+        ],
+        "title": "Prompt",
+        "category": "prompt",
+        "useStorage": true,
+        "description": "The prompt node is the most standard node on the platform.\n    It is used for calling out to any of the below LLMs. Text input enters the node, and the AI response is what exits the node as the output.\n| Model               | Credits | Response Time |\n|---------------------|---------|---------------|\n| gemma-7b-it         | 1       | HIGH SPEED    |\n| llama3-70b-8192     | 1       | HIGH SPEED    |\n| llama3-8b-8192      | 1       | HIGH SPEED    |\n| mixtral-8x7b-32768  | 1       | HIGH SPEED    |\n| babbage-002         | 1       | FAST          |\n| davinci-002         | 1       | FAST          |\n| gpt-3.5-turbo       | 5       | FAST          |\n| gpt-4-turbo         | 5       | SLOW          |",
+        "useModalLibrary": true
+      },
+      "fileName": "newPromptNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 227,
+    "dragging": false,
+    "position": {
+      "x": 520,
+      "y": 300
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 520,
+      "y": 300
+    }
+  },
+  {
+    "id": "node_1720908828601_0.3220065234739795",
+    "data": {
+      "title": "Summarize",
+      "config": {
+        "icon": "IconTextGrammar",
+        "title": "Summarize",
+        "category": "prompt",
+        "description": "This node is summarizes any incoming input.",
+        "useModalLibrary": true
+      },
+      "fileName": "summarizeNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 98,
+    "dragging": false,
+    "position": {
+      "x": 520,
+      "y": 560
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 520,
+      "y": 560
+    }
+  },
+  {
+    "id": "node_1720908831753_0.6102586285828209",
+    "data": {
+      "title": "Current Date",
+      "config": {
+        "icon": "IconCalendarMonth",
+        "title": "Current Date",
+        "category": "data",
+        "description": "Appends the current date to the input"
+      },
+      "fileName": "currentDateNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 98,
+    "dragging": false,
+    "position": {
+      "x": 980,
+      "y": -220
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 980,
+      "y": -220
+    }
+  },
+  {
+    "id": "node_1720908838345_0.7779375187364082",
+    "data": {
+      "title": "Current Time",
+      "config": {
+        "icon": "IconSunset2",
+        "title": "Current Time",
+        "category": "data",
+        "description": "Appends the current time to the input"
+      },
+      "fileName": "currentTimeNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 98,
+    "dragging": false,
+    "position": {
+      "x": 980,
+      "y": -80
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 980,
+      "y": -80
+    }
+  },
+  {
+    "id": "node_1720908843328_0.41652951428551277",
+    "data": {
+      "title": "Cut code",
+      "config": {
+        "icon": "IconCode",
+        "title": "Cut code",
+        "category": "data",
+        "description": "Scans for any incoming code snippets and cuts them from the input, then returns only code."
+      },
+      "fileName": "cutCodeNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 98,
+    "dragging": false,
+    "position": {
+      "x": 980,
+      "y": 80
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 980,
+      "y": 80
+    }
+  },
+  {
+    "id": "node_1720908846689_0.1948757357129598",
+    "data": {
+      "title": "Vector Storage",
+      "config": {
+        "icon": "IconDatabase",
+        "title": "Vector Storage",
+        "storage": true,
+        "category": "data",
+        "description": "Embeds files from the users file input into 1 storage instance.",
+        "removeInputHandle": true,
+        "removeOutputHandle": true
+      },
+      "fileName": "embedFileNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 98,
+    "dragging": false,
+    "position": {
+      "x": 980,
+      "y": 220
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 980,
+      "y": 220
+    }
+  },
+  {
+    "id": "node_1720908849489_0.40339224613852265",
+    "data": {
+      "title": "Delay",
+      "config": {
+        "icon": "IconClock",
+        "props": [
+          {
+            "name": "hours",
+            "type": "number",
+            "label": "Hours",
+            "value": 0
+          },
+          {
+            "name": "minutes",
+            "type": "number",
+            "label": "Minutes",
+            "value": 0
+          },
+          {
+            "name": "seconds",
+            "type": "number",
+            "label": "Seconds",
+            "value": 0
+          }
+        ],
+        "title": "Delay",
+        "category": "control",
+        "description": "This node delays the flow by a specified amount of time."
+      },
+      "fileName": "delayNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 304,
+    "dragging": false,
+    "position": {
+      "x": 1740,
+      "y": 360
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 1740,
+      "y": 360
+    }
+  },
+  {
+    "id": "node_1720908858372_0.4791451674180556",
+    "data": {
+      "title": "Firearray",
+      "config": {
+        "icon": "IconLighter",
+        "title": "Firearray",
+        "category": "control",
+        "description": "This node takes an incoming array and outputs each item of the array separately, to fire off many flow executions at once.",
+        "disableTitle": true
+      },
+      "fileName": "fireArrayNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 98,
+    "dragging": false,
+    "position": {
+      "x": 1360,
+      "y": -220
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 1360,
+      "y": -220
+    }
+  },
+  {
+    "id": "node_1720908863074_0.0988720819032427",
+    "data": {
+      "title": "Inject",
+      "config": {
+        "icon": "IconSpacingVertical",
+        "props": [
+          {
+            "name": "textbox",
+            "type": "textbox",
+            "label": "Prepend text",
+            "value": "Enter what to add to the start of incoming input input..."
+          },
+          {
+            "name": "textbox2",
+            "type": "textbox",
+            "label": "Append text",
+            "value": "Enter what to add to the emd of incoming input input..."
+          }
+        ],
+        "title": "Inject",
+        "category": "control",
+        "description": "This node injects an input between 2 pieces of text set in the textboxes"
+      },
+      "fileName": "injectNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 272,
+    "dragging": false,
+    "position": {
+      "x": 1360,
+      "y": -60
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 1360,
+      "y": -60
+    }
+  },
+  {
+    "id": "node_1720908867545_0.6680058581315766",
+    "data": {
+      "title": "Merge",
+      "config": {
+        "icon": "IconArrowMerge",
+        "title": "Merge",
+        "category": "control",
+        "description": "This node merges two text inputs and passes them through the output.",
+        "useSecondInput": true
+      },
+      "fileName": "mergeNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 122,
+    "dragging": false,
+    "position": {
+      "x": 1360,
+      "y": 280
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 1360,
+      "y": 280
+    }
+  },
+  {
+    "id": "node_1720908871874_0.9623700793980408",
+    "data": {
+      "title": "Random Path",
+      "config": {
+        "icon": "IconArrowsShuffle",
+        "title": "Random Path",
+        "category": "control",
+        "description": "This node chooses a random path to take and carries the input through.",
+        "useSecondOutput": true
+      },
+      "fileName": "randomPathNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 122,
+    "dragging": false,
+    "position": {
+      "x": 1360,
+      "y": 460
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 1360,
+      "y": 460
+    }
+  },
+  {
+    "id": "node_1720908882663_0.554684004660045",
+    "data": {
+      "text2": "",
+      "title": "Loop",
+      "config": {
+        "props": []
+      },
+      "number": 2,
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "loopNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 244,
+    "height": 126,
+    "dragging": false,
+    "position": {
+      "x": 980,
+      "y": 400
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 980,
+      "y": 400
+    }
+  },
+  {
+    "id": "node_1720908886164_0.41274595259078195",
+    "data": {
+      "title": "Website Scraper",
+      "config": {
+        "icon": "IconWorld",
+        "props": [
+          {
+            "name": "url",
+            "type": "text",
+            "label": "URL to Scrape",
+            "value": ""
+          }
+        ],
+        "title": "Website Scraper",
+        "category": "special",
+        "description": "This node scrapes content from the provided URL using the Apify web content scraper."
+      },
+      "fileName": "websiteScraperNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 280,
+    "height": 158,
+    "dragging": false,
+    "position": {
+      "x": 1740,
+      "y": -40
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 1740,
+      "y": -40
+    }
+  },
+  {
+    "id": "node_1720908890922_0.5691126568490901",
+    "data": {
+      "text": "Do something with the file and text input passed through",
+      "text2": "",
+      "title": "File",
+      "config": {
+        "props": []
+      },
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "fileNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 244,
+    "height": 172,
+    "dragging": false,
+    "position": {
+      "x": 80,
+      "y": 180
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 80,
+      "y": 180
+    }
+  },
+  {
+    "id": "node_1720908894837_0.6730327856439706",
+    "data": {
+      "text": "Do something with the image and text input passed through",
+      "text2": "",
+      "title": "Vision",
+      "config": {
+        "props": []
+      },
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "visionNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 244,
+    "height": 172,
+    "dragging": false,
+    "position": {
+      "x": 80,
+      "y": 400
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 80,
+      "y": 400
+    }
+  },
+  {
+    "id": "node_1720908899186_0.5418130461069932",
+    "data": {
+      "title": "Apify",
+      "config": {
+        "icon": "IconSquareRoundedLetterA",
+        "image": "nodes/icons/apify.png",
+        "props": [
+          {
+            "name": "actorId",
+            "type": "text",
+            "label": "Apify Actor ID",
+            "value": ""
+          },
+          {
+            "name": "jsonArray",
+            "type": "textbox",
+            "label": "Apify Array",
+            "value": ""
+          }
+        ],
+        "title": "Apify",
+        "category": "integration",
+        "iconImage": "nodes/icons/apify.png",
+        "description": "This node executes Apify tasks using the provided actor ID and and a create array input based on the Apify actor you would like to use."
+      },
+      "fileName": "apifyNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 334,
+    "height": 302,
+    "dragging": false,
+    "position": {
+      "x": 2100,
+      "y": -240
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 2100,
+      "y": -240
+    }
+  },
+  {
+    "id": "node_1720908903218_0.9504838936795155",
+    "data": {
+      "title": "Make.com",
+      "config": {
+        "icon": "IconSquareRoundedLetterM",
+        "image": "makeNode",
+        "props": [
+          {
+            "name": "text",
+            "type": "text",
+            "label": "Webhook URL",
+            "value": ""
+          }
+        ],
+        "title": "Make.com",
+        "category": "integration",
+        "iconImage": "nodes/icons/make.png",
+        "description": "This node does something special.",
+        "removeOutputHandle": true
+      },
+      "fileName": "makeNode",
+      "companion_id": "",
+      "companion_pfp": ""
+    },
+    "type": "templateNode",
+    "style": {
+      "border": "1px solid #777",
+      "background": "transparent"
+    },
+    "width": 334,
+    "height": 208,
+    "dragging": false,
+    "position": {
+      "x": 2100,
+      "y": 100
+    },
+    "selected": false,
+    "positionAbsolute": {
+      "x": 2100,
+      "y": 100
+    }
+  }
+]}

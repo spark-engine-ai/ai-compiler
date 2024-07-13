@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button, FileInput, Container, Title } from '@mantine/core';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import baseNodeData from './lib/node_data.json'; // Import the base node data
 
 interface NodeData {
   id: string;
@@ -55,10 +56,28 @@ interface FlowData {
 }
 
 const spriteMap: { [key: string]: number } = {
-  "/tilemaps/Alex16x16.png": 0,
-  "/tilemaps/Bobby16x16.png": 1,
-  "/tilemaps/Julie16x16.png": 2,
-  "/tilemaps/Jordan16x16.png": 3,
+  "/tilemaps/Alex16x16.png": 1,
+  "/tilemaps/Bobby16x16.png": 2,
+  "/tilemaps/Julie16x16.png": 3,
+  "/tilemaps/Jordan16x16.png": 4,
+};
+
+const edgeTemplate = {
+  id: '',
+  type: 'baseEdge',
+  source: '',
+  target: '',
+  sourceHandle: 'source',
+  targetHandle: 'target'
+};
+
+const agentTemplate = {
+  id: '',
+  name: '',
+  role: '',
+  color: '',
+  spritesheet: 0,
+  instructions: ''
 };
 
 const Decompiler: React.FC = () => {
@@ -86,7 +105,8 @@ const Decompiler: React.FC = () => {
   const createDumbedDownNode = (node: NodeData) => {
     const dumbedDownNode: any = {
       id: node.id,
-      type: node.type.replace(/Node$/, ''), // Remove "Node" suffix from type
+      type: node.type.replace(/Node$/, ''),
+      templateName: "",
       data: {
         title: node.data.title,
         props: node.data.config.props?.map(prop => ({
@@ -97,7 +117,7 @@ const Decompiler: React.FC = () => {
       position: node.position,
     };
 
-    if (node.type === 'template') {
+    if (node.type === 'templateNode') {
       dumbedDownNode.templateName = node.data.fileName?.replace(/Node$/, ''); // Remove "Node" suffix from fileName
     }
 
@@ -137,7 +157,7 @@ const Decompiler: React.FC = () => {
     };
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!flowData) return;
 
     const zip = new JSZip();
@@ -168,19 +188,21 @@ const Decompiler: React.FC = () => {
         console.log('Adding node:', uniqueName); // Log each node
         nodesFolder?.file(`${uniqueName}.json`, JSON.stringify(createDumbedDownNode(node), null, 2));
       });
-      zip.file('data/node_data.spk', JSON.stringify(flow.nodes, null, 2));
+      zip.file('data/node_data.json', JSON.stringify(baseNodeData.nodes, null, 2)); // Replace with base node data
     } else {
       console.error('No nodes found in flowData');
     }
 
     // Add edges
     if (flow && flow.edges) {
-      flow.edges.forEach((edge, index) => {
-        const uniqueName = `edge_${index + 1}`;
+      flow.edges.forEach((edge) => {
+        const dumbedDownEdge = createDumbedDownEdge(edge);
+        const baseName = `edge_${flow.edges.indexOf(edge) + 1}`;
+        const uniqueName = getUniqueFileName(baseName, usedNames);
         console.log('Adding edge:', uniqueName); // Log each edge
-        edgesFolder?.file(`${uniqueName}.json`, JSON.stringify(createDumbedDownEdge(edge), null, 2));
+        edgesFolder?.file(`${uniqueName}.json`, JSON.stringify(dumbedDownEdge, null, 2));
       });
-      zip.file('data/edge_data.spk', JSON.stringify(flow.edges, null, 2));
+      zip.file('data/edge_data.json', JSON.stringify([edgeTemplate], null, 2)); // Add single edge template file
     } else {
       console.error('No edges found in flowData');
     }
@@ -188,12 +210,13 @@ const Decompiler: React.FC = () => {
     // Add agents
     if (flowData.agent_layer) {
       flowData.agent_layer.forEach((agent) => {
-        const baseName = agent.name || `agent_${agent.id}`;
+        const dumbedDownAgent = createDumbedDownAgent(agent);
+        const baseName = agent.name || `agent_${flowData.agent_layer.indexOf(agent) + 1}`;
         const uniqueName = getUniqueFileName(baseName, usedNames);
         console.log('Adding agent:', uniqueName); // Log each agent
-        agentsFolder?.file(`${uniqueName}.json`, JSON.stringify(createDumbedDownAgent(agent), null, 2));
+        agentsFolder?.file(`${uniqueName}.json`, JSON.stringify(dumbedDownAgent, null, 2));
       });
-      zip.file('data/agent_data.spk', JSON.stringify(flowData.agent_layer, null, 2));
+      zip.file('data/agent_data.json', JSON.stringify([agentTemplate], null, 2)); // Add single agent template file
     } else {
       console.error('No agents found in flowData');
     }
@@ -210,7 +233,7 @@ const Decompiler: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container w="100%">
       <Title order={2}>Decompiler</Title>
       <FileInput
         placeholder="Upload .spk file"

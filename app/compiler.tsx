@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { Button, FileInput, Container, Title } from '@mantine/core';
 import JSZip, { JSZipObject } from 'jszip';
 import { saveAs } from 'file-saver';
@@ -19,6 +19,7 @@ interface NodeData {
   templateName?: string;
   data: {
     title: string;
+    fileName?: string;
     props: Array<{
       label: string;
       value: any;
@@ -30,29 +31,11 @@ interface NodeData {
   };
 }
 
-interface EdgeData {
-  id: string;
-  from: string;
-  to: string;
-  fromHandle?: number;
-  toHandle?: number;
-  [key: string]: any;
-}
-
-interface AgentData {
-  id: string;
-  name: string;
-  role: string;
-  color: string;
-  spritesheet: number;
-  instructions: string;
-}
-
 const spriteMapInverse: { [key: number]: string } = {
-  0: "/tilemaps/Alex16x16.png",
-  1: "/tilemaps/Bobby16x16.png",
-  2: "/tilemaps/Julie16x16.png",
-  3: "/tilemaps/Jordan16x16.png",
+  1: "/tilemaps/Alex16x16.png",
+  2: "/tilemaps/Bobby16x16.png",
+  3: "/tilemaps/Julie16x16.png",
+  4: "/tilemaps/Jordan16x16.png",
 };
 
 const Compiler: React.FC = () => {
@@ -71,148 +54,126 @@ const Compiler: React.FC = () => {
 
     const reader = new FileReader();
 
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       if (!e.target?.result) return;
 
-      JSZip.loadAsync(e.target.result)
-        .then((zipContent) => {
-          const flowData: FlowData = { flow: { nodes: [], edges: [] }, agent_layer: [] };
+      const zipContent = await JSZip.loadAsync(e.target.result);
+      const flowData: FlowData = { flow: { nodes: [], edges: [] }, agent_layer: [] };
 
-          const filePromises = Object.values(zipContent.files).map((file: JSZipObject) =>
-            file.async("string").then((content) => {
-              if (content) {
-                try {
-                  const json = JSON.parse(content);
-                  const relativePath = file.name;
-                  if (relativePath === "data/node_data.spk") {
-                    flowData.flow.nodes = json;
-                  } else if (relativePath === "data/edge_data.spk") {
-                    flowData.flow.edges = json;
-                  } else if (relativePath === "data/agent_data.spk") {
-                    flowData.agent_layer = json;
-                  } else if (relativePath.startsWith("assets/nodes")) {
-                    if (Array.isArray(json)) {
-                      json.forEach((dumbedDownNode: NodeData) => {
-                        const originalNode = flowData.flow.nodes.find(node => node.id === dumbedDownNode.id);
-                        if (originalNode) {
-                          originalNode.type = dumbedDownNode.type.endsWith('Node') ? dumbedDownNode.type : `${dumbedDownNode.type}Node`;
-                          originalNode.data.title = dumbedDownNode.data.title;
-                          if (originalNode.data.config.props) {
-                            originalNode.data.config.props.forEach((prop: any, index: any) => {
-                              prop.value = dumbedDownNode.data.props[index].value;
-                            });
-                          }
-                          originalNode.position = dumbedDownNode.position;
-                          if (dumbedDownNode.templateName) {
-                            originalNode.data.fileName = `${dumbedDownNode.templateName}Node`;
-                          }
-                        }
-                      });
-                    } else {
-                      const dumbedDownNode = json as NodeData;
-                      const originalNode = flowData.flow.nodes.find(node => node.id === dumbedDownNode.id);
-                      if (originalNode) {
-                        originalNode.type = dumbedDownNode.type.endsWith('Node') ? dumbedDownNode.type : `${dumbedDownNode.type}Node`;
-                        originalNode.data.title = dumbedDownNode.data.title;
-                        if (originalNode.data.config.props) {
-                          originalNode.data.config.props.forEach((prop: any, index: any) => {
-                            prop.value = dumbedDownNode.data.props[index].value;
-                          });
-                        }
-                        originalNode.position = dumbedDownNode.position;
-                        if (dumbedDownNode.templateName) {
-                          originalNode.data.fileName = `${dumbedDownNode.templateName}Node`;
-                        }
-                      }
-                    }
-                  } else if (relativePath.startsWith("assets/edges")) {
-                    if (Array.isArray(json)) {
-                      json.forEach((dumbedDownEdge: EdgeData) => {
-                        const originalEdge = flowData.flow.edges.find(edge => edge.id === dumbedDownEdge.id);
-                        if (originalEdge) {
-                          originalEdge.source = dumbedDownEdge.from;
-                          originalEdge.target = dumbedDownEdge.to;
+      const dataPromises = Promise.all([
+        zipContent.file('data/node_data.json')?.async('string').then(JSON.parse) || [],
+        zipContent.file('data/edge_data.json')?.async('string').then(JSON.parse) || [],
+        zipContent.file('data/agent_data.json')?.async('string').then(JSON.parse) || [],
+      ]);
 
-                          if (dumbedDownEdge.fromHandle === 1) {
-                            originalEdge.sourceHandle = "second-one-source";
-                          } else if (dumbedDownEdge.fromHandle === 2) {
-                            originalEdge.sourceHandle = "second-two-source";
-                          }
+      const [nodeTemplate, edgeTemplate, agentTemplate] = await dataPromises;
 
-                          if (dumbedDownEdge.toHandle === 1) {
-                            originalEdge.targetHandle = "second-one-target";
-                          } else if (dumbedDownEdge.toHandle === 2) {
-                            originalEdge.targetHandle = "second-two-target";
-                          }
-                        }
-                      });
-                    } else {
-                      const dumbedDownEdge = json;
-                      const originalEdge = flowData.flow.edges.find(edge => edge.id === dumbedDownEdge.id);
-                      if (originalEdge) {
-                        originalEdge.source = dumbedDownEdge.from;
-                        originalEdge.target = dumbedDownEdge.to;
-
-                        if (dumbedDownEdge.fromHandle === 1) {
-                          originalEdge.sourceHandle = "second-one-source";
-                        } else if (dumbedDownEdge.fromHandle === 2) {
-                          originalEdge.sourceHandle = "second-two-source";
-                        }
-
-                        if (dumbedDownEdge.toHandle === 1) {
-                          originalEdge.targetHandle = "second-one-target";
-                        } else if (dumbedDownEdge.toHandle === 2) {
-                          originalEdge.targetHandle = "second-two-target";
-                        }
-                      }
-                    }
-                  } else if (relativePath.startsWith("assets/agents")) {
-                    if (Array.isArray(json)) {
-                      json.forEach((dumbedDownAgent: AgentData) => {
-                        const originalAgent = flowData.agent_layer.find(agent => agent.id === dumbedDownAgent.id);
-                        if (originalAgent) {
-                          originalAgent.name = dumbedDownAgent.name;
-                          originalAgent.role = dumbedDownAgent.role;
-                          originalAgent.color = dumbedDownAgent.color;
-                          originalAgent.spritesheet = spriteMapInverse[dumbedDownAgent.spritesheet];
-                          originalAgent.instructions = dumbedDownAgent.instructions;
-                        }
-                      });
-                    } else {
-                      const dumbedDownAgent = json;
-                      const originalAgent = flowData.agent_layer.find(agent => agent.id === dumbedDownAgent.id);
-                      if (originalAgent) {
-                        originalAgent.name = dumbedDownAgent.name;
-                        originalAgent.role = dumbedDownAgent.role;
-                        originalAgent.color = dumbedDownAgent.color;
-                        originalAgent.spritesheet = spriteMapInverse[dumbedDownAgent.spritesheet];
-                        originalAgent.instructions = dumbedDownAgent.instructions;
-                      }
-                    }
+      const filePromises = Object.values(zipContent.files).map((file: JSZipObject) =>
+        file.async("string").then((content) => {
+          if (content) {
+            try {
+              const json = JSON.parse(content);
+              const relativePath = file.name;
+              if (relativePath.startsWith("assets/nodes")) {
+                const processNode = (dumbedDownNode: NodeData) => {
+                  let originalNode;
+                  if (dumbedDownNode.type === 'template') {
+                    originalNode = nodeTemplate.find((node: NodeData) => node.data?.fileName === `${dumbedDownNode.templateName}Node`);
+                  } else if (dumbedDownNode.type === 'input') {
+                    originalNode = nodeTemplate.find((node: NodeData) => node.type === `${dumbedDownNode.type}`);
+                  } else {
+                    originalNode = nodeTemplate.find((node: NodeData) => node.type === `${dumbedDownNode.type}Node`);
                   }
-                } catch (error) {
-                  console.error(`Error parsing JSON for file ${file.name}:`, error);
+                  
+                  if (originalNode) {
+                    originalNode = JSON.parse(JSON.stringify(originalNode)); // Clone the node template
+                    originalNode.id = dumbedDownNode.id;
+                    originalNode.data.title = dumbedDownNode.data.title;
+                    if (originalNode.data.config.props) {
+                      originalNode.data.config.props.forEach((prop: any, index: any) => {
+                        prop.value = dumbedDownNode.data.props[index]?.value ?? prop.value;
+                      });
+                    }
+                    originalNode.position = dumbedDownNode.position;
+                    flowData.flow.nodes.push(originalNode);
+                  } else {
+                    console.error(`Node template not found for type ${dumbedDownNode.type} or templateName ${dumbedDownNode.templateName}`);
+                  }
+                };
+                if (Array.isArray(json)) {
+                  json.forEach(processNode);
+                } else {
+                  processNode(json);
+                }
+              } else if (relativePath.startsWith("assets/edges")) {
+                const processEdge = (dumbedDownEdge: any) => {
+                  let originalEdge = edgeTemplate.find((edge: any) => edge.id === dumbedDownEdge.id);
+                  if (originalEdge) {
+                    originalEdge = JSON.parse(JSON.stringify(originalEdge)); // Clone the edge template
+                    originalEdge.id = dumbedDownEdge.id;
+                    originalEdge.source = dumbedDownEdge.from;
+                    originalEdge.target = dumbedDownEdge.to;
+                    if (dumbedDownEdge.fromHandle === 1) {
+                      originalEdge.sourceHandle = "second-one-source";
+                    } else if (dumbedDownEdge.fromHandle === 2) {
+                      originalEdge.sourceHandle = "second-two-source";
+                    }
+                    if (dumbedDownEdge.toHandle === 1) {
+                      originalEdge.targetHandle = "second-one-target";
+                    } else if (dumbedDownEdge.toHandle === 2) {
+                      originalEdge.targetHandle = "second-two-target";
+                    }
+                    flowData.flow.edges.push(originalEdge);
+                  } else {
+                    console.error(`Edge template not found for id ${dumbedDownEdge.id}`);
+                  }
+                };
+                if (Array.isArray(json)) {
+                  json.forEach(processEdge);
+                } else {
+                  processEdge(json);
+                }
+              } else if (relativePath.startsWith("assets/agents")) {
+                const processAgent = (dumbedDownAgent: any) => {
+                  let originalAgent = agentTemplate.find((agent: any) => agent.id === dumbedDownAgent.id);
+                  if (originalAgent) {
+                    originalAgent = JSON.parse(JSON.stringify(originalAgent)); // Clone the agent template
+                    originalAgent.id = dumbedDownAgent.id;
+                    originalAgent.name = dumbedDownAgent.name;
+                    originalAgent.role = dumbedDownAgent.role;
+                    originalAgent.color = dumbedDownAgent.color;
+                    originalAgent.spritesheet = spriteMapInverse[dumbedDownAgent.spritesheet];
+                    originalAgent.instructions = dumbedDownAgent.instructions;
+                    flowData.agent_layer.push(originalAgent);
+                  } else {
+                    console.error(`Agent template not found for id ${dumbedDownAgent.id}`);
+                  }
+                };
+                if (Array.isArray(json)) {
+                  json.forEach(processAgent);
+                } else {
+                  processAgent(json);
                 }
               }
-            })
-          );
-
-          Promise.all(filePromises).then(() => {
-            const compiledContent = JSON.stringify(flowData, null, 2);
-            const spkBlob = new Blob([compiledContent], { type: 'application/json' });
-            saveAs(spkBlob, 'compiled_flow.spk');
-          });
+            } catch (error) {
+              console.error(`Error parsing JSON for file ${file.name}:`, error);
+            }
+          }
         })
-        .catch((err) => {
-          console.error('Error reading zip file', err);
-        });
+      );
+
+      await Promise.all(filePromises);
+
+      const compiledContent = JSON.stringify(flowData, null, 2);
+      const spkBlob = new Blob([compiledContent], { type: 'application/json' });
+      saveAs(spkBlob, 'compiled_flow.spk');
     };
 
     reader.readAsArrayBuffer(zipFile);
   };
 
   return (
-    <Container>
+    <Container w="100%">
       <Title order={2}>Compiler</Title>
       <FileInput
         placeholder="Upload .zip file"
