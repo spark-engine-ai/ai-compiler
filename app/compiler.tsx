@@ -10,7 +10,7 @@ interface FlowData {
     nodes: any[];
     edges: any[];
   };
-  agent_layer: any[];
+  characters: any[];
 }
 
 interface NodeData {
@@ -58,7 +58,7 @@ const Compiler: React.FC = () => {
       if (!e.target?.result) return;
 
       const zipContent = await JSZip.loadAsync(e.target.result);
-      const flowData: FlowData = { flow: { nodes: [], edges: [] }, agent_layer: [] };
+      const flowData: FlowData = { flow: { nodes: [], edges: [] }, characters: [] };
 
       const dataPromises = Promise.all([
         zipContent.file('resources/node_data.json')?.async('string').then(JSON.parse) || [],
@@ -144,7 +144,7 @@ const Compiler: React.FC = () => {
                     originalAgent.color = dumbedDownAgent.color;
                     originalAgent.spritesheet = spriteMapInverse[dumbedDownAgent.spritesheet];
                     originalAgent.instructions = dumbedDownAgent.instructions;
-                    flowData.agent_layer.push(originalAgent);
+                    flowData.characters.push(originalAgent);
                   } else {
                     console.error(`Agent template not found for id ${dumbedDownAgent.id}`);
                   }

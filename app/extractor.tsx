@@ -52,7 +52,7 @@ interface FlowData {
     nodes: NodeData[];
     edges: EdgeData[];
   };
-  agent_layer: AgentData[];
+  characters: AgentData[];
 }
 
 const spriteMap: { [key: string]: number } = {
@@ -76,7 +76,7 @@ const agentTemplate = {
   name: '',
   role: '',
   color: '',
-  spritesheet: 0,
+  spritesheet: 1,
   instructions: ''
 };
 
@@ -208,10 +208,10 @@ const Decompiler: React.FC = () => {
     }
 
     // Add agents
-    if (flowData.agent_layer) {
-      flowData.agent_layer.forEach((agent) => {
+    if (flowData.characters) {
+      flowData.characters.forEach((agent) => {
         const dumbedDownAgent = createDumbedDownAgent(agent);
-        const baseName = agent.name || `agent_${flowData.agent_layer.indexOf(agent) + 1}`;
+        const baseName = agent.name || `agent_${flowData.characters.indexOf(agent) + 1}`;
         const uniqueName = getUniqueFileName(baseName, usedNames);
         console.log('Adding agent:', uniqueName); // Log each agent
         agentsFolder?.file(`${uniqueName}.json`, JSON.stringify(dumbedDownAgent, null, 2));
