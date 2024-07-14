@@ -61,9 +61,9 @@ const Compiler: React.FC = () => {
       const flowData: FlowData = { flow: { nodes: [], edges: [] }, agent_layer: [] };
 
       const dataPromises = Promise.all([
-        zipContent.file('data/node_data.json')?.async('string').then(JSON.parse) || [],
-        zipContent.file('data/edge_data.json')?.async('string').then(JSON.parse) || [],
-        zipContent.file('data/agent_data.json')?.async('string').then(JSON.parse) || [],
+        zipContent.file('resources/node_data.json')?.async('string').then(JSON.parse) || [],
+        zipContent.file('resources/edge_data.json')?.async('string').then(JSON.parse) || [],
+        zipContent.file('resources/agent_data.json')?.async('string').then(JSON.parse) || [],
       ]);
 
       const [nodeTemplate, edgeTemplate, agentTemplate] = await dataPromises;
@@ -166,7 +166,7 @@ const Compiler: React.FC = () => {
 
       const compiledContent = JSON.stringify(flowData, null, 2);
       const spkBlob = new Blob([compiledContent], { type: 'application/json' });
-      saveAs(spkBlob, 'compiled_flow.spk');
+      saveAs(spkBlob, 'spark_project.spk');
     };
 
     reader.readAsArrayBuffer(zipFile);

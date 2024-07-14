@@ -188,7 +188,7 @@ const Decompiler: React.FC = () => {
         console.log('Adding node:', uniqueName); // Log each node
         nodesFolder?.file(`${uniqueName}.json`, JSON.stringify(createDumbedDownNode(node), null, 2));
       });
-      zip.file('data/node_data.json', JSON.stringify(baseNodeData.nodes, null, 2)); // Replace with base node data
+      zip.file('resources/node_data.json', JSON.stringify(baseNodeData.nodes, null, 2)); // Replace with base node data
     } else {
       console.error('No nodes found in flowData');
     }
@@ -202,7 +202,7 @@ const Decompiler: React.FC = () => {
         console.log('Adding edge:', uniqueName); // Log each edge
         edgesFolder?.file(`${uniqueName}.json`, JSON.stringify(dumbedDownEdge, null, 2));
       });
-      zip.file('data/edge_data.json', JSON.stringify([edgeTemplate], null, 2)); // Add single edge template file
+      zip.file('resources/edge_data.json', JSON.stringify([edgeTemplate], null, 2)); // Add single edge template file
     } else {
       console.error('No edges found in flowData');
     }
@@ -216,7 +216,7 @@ const Decompiler: React.FC = () => {
         console.log('Adding agent:', uniqueName); // Log each agent
         agentsFolder?.file(`${uniqueName}.json`, JSON.stringify(dumbedDownAgent, null, 2));
       });
-      zip.file('data/agent_data.json', JSON.stringify([agentTemplate], null, 2)); // Add single agent template file
+      zip.file('resources/agent_data.json', JSON.stringify([agentTemplate], null, 2)); // Add single agent template file
     } else {
       console.error('No agents found in flowData');
     }
@@ -225,7 +225,7 @@ const Decompiler: React.FC = () => {
     zip.generateAsync({ type: 'blob' })
       .then((content) => {
         // Save the zip file
-        saveAs(content, 'flow_data.zip');
+        saveAs(content, 'spark_unpacked.zip');
       })
       .catch((err) => {
         console.error('Error generating zip file', err);
